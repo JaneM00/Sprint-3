@@ -52,6 +52,3 @@ class RegistrationTests(unittest.TestCase):
         # Проверяем наличие ошибки
         error_message = self.browser.find_element(By.CLASS_NAME, 'error').text
         self.assertIn('Пароль должен содержать минимум 6 символов', error_message)
-
-if __name__ == '__main__':
-    unittest.main()
