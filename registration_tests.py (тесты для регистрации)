@@ -1,0 +1,57 @@
+import time
+import unittest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from locators import *
+
+class RegistrationTests(unittest.TestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+        self.wait = WebDriverWait(self.browser, 10)
+
+    def tearDown(self):
+        self.browser.quit()
+
+    # Тест успешной регистрации
+    def test_successful_registration(self):
+        self.browser.get(MAIN_PAGE_URL)
+        self.browser.find_element(By.XPATH, REGISTER_BUTTON_MAIN_PAGE).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, REGISTRATION_FORM_NAME_INPUT)))
+        
+        # Генерируем уникальный email
+        unique_email = f'test_{time.time()}@example.com'
+
+        # Заполняем форму регистрации
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_NAME_INPUT).send_keys('John Doe')
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_EMAIL_INPUT).send_keys(unique_email)
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_PASSWORD_INPUT).send_keys('123456')
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_SUBMIT_BUTTON).click()
+
+        # Проверяем успешность регистрации
+        self.wait.until(EC.visibility_of_element_located((By.XPATH, PERSONAL_ACCOUNT_LINK)))
+        personal_account_text = self.browser.find_element(By.XPATH, PERSONAL_ACCOUNT_LINK).text
+        self.assertEqual(personal_account_text, 'Личный кабинет')
+
+    # Тест ошибки при вводе короткого пароля
+    def test_short_password_error(self):
+        self.browser.get(MAIN_PAGE_URL)
+        self.browser.find_element(By.XPATH, REGISTER_BUTTON_MAIN_PAGE).click()
+        wait.until(EC.visibility_of_element_located((By.XPATH, REGISTRATION_FORM_NAME_INPUT)))
+        
+        # Генерируем уникальный email
+        unique_email = f'test_{time.time()}@example.com'
+
+        # Заполняем форму регистрации с коротким паролем
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_NAME_INPUT).send_keys('John Doe')
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_EMAIL_INPUT).send_keys(unique_email)
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_PASSWORD_INPUT).send_keys('12345')  # Пароль короче минимального
+        self.browser.find_element(By.XPATH, REGISTRATION_FORM_SUBMIT_BUTTON).click()
+
+        # Проверяем наличие ошибки
+        error_message = self.browser.find_element(By.CLASS_NAME, 'error').text
+        self.assertIn('Пароль должен содержать минимум 6 символов', error_message)
+
+if __name__ == '__main__':
+    unittest.main()
