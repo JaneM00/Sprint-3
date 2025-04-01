@@ -8,11 +8,11 @@ from locators import *
 class LoginTests(unittest.TestCase):
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
-        self.wait = WebDriverWait(self.browser, 10)
+        pass  
 
     def tearDown(self):
-        self.browser.quit()
+        pass  
+
 
     # Тест входа по кнопке «Войти в аккаунт» на главной
     def test_login_via_main_page_button(self):
