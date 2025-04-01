@@ -19,21 +19,27 @@ class ConstructorTests(unittest.TestCase):
         self.browser.get(MAIN_PAGE_URL)
         self.browser.find_element(By.XPATH, BURGER_LOGO).click()
         self.wait.until(EC.visibility_of_element_located((By.XPATH, CONSTRUCTOR_BUNS_SECTION)))
-        buns_section_visible = self.browser.find_element(By.XPATH, CONSTRUCTOR_BUNS_SECTION).is_displayed()
-        self.assertTrue(buns_section_visible)
+
+        # Проверяем, что раздел "Булки" является активным
+        buns_tab_active = self.browser.find_element(By.XPATH, '//li[@data-id="buns" and contains(@class, "current")]')
+        self.assertIsNotNone(buns_tab_active, "Таба 'Булки' не активирован.")
 
     # Тест открытия раздела "Соусы" в конструкторе
     def test_open_sauce_section(self):
         self.browser.get(MAIN_PAGE_URL)
         self.browser.find_element(By.XPATH, BURGER_LOGO).click()
-        self.wait.until(EC.visibility_of_element_located((By.XPATH, CONSTRUCTOR_SAUCE_SECTION)))
-        sauce_section_visible = self.browser.find_element(By.XPATH, CONSTRUCTOR_SAUCE_SECTION).is_displayed()
-        self.assertTrue(sauce_section_visible)
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, '//li[@data-id="sauces"]'))).click()
+
+        # Проверяем, что раздел "Соусы" является активным
+        sauces_tab_active = self.browser.find_element(By.XPATH, '//li[@data-id="sauces" and contains(@class, "current")]')
+        self.assertIsNotNone(sauces_tab_active, "Таба 'Соусы' не активирован.")
 
     # Тест открытия раздела "Начинки" в конструкторе
     def test_open_fillings_section(self):
         self.browser.get(MAIN_PAGE_URL)
         self.browser.find_element(By.XPATH, BURGER_LOGO).click()
-        self.wait.until(EC.visibility_of_element_located((By.XPATH, CONSTRUCTOR_FILLINGS_SECTION)))
-        fillings_section_visible = self.browser.find_element(By.XPATH, CONSTRUCTOR_FILLINGS_SECTION).is_displayed()
-        self.assertTrue(fillings_section_visible)
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, '//li[@data-id="fillings"]'))).click()
+
+        # Проверяем, что раздел "Начинки" является активным
+        fillings_tab_active = self.browser.find_element(By.XPATH, '//li[@data-id="fillings" and contains(@class, "current")]')
+        self.assertIsNotNone(fillings_tab_active, "Таба 'Начинки' не активирован.")
