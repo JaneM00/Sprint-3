@@ -1,8 +1,8 @@
 import time
 import unittest
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by
+from selenium.webdriver.support.ui
+from selenium.webdriver.support
 
 # Локаторы для главной страницы
 MAIN_PAGE_URL = 'https://stellarburgers.nomoreparties.site/'
