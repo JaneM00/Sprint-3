@@ -3,43 +3,48 @@ import unittest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from locators import *
+
+# Локаторы для конструктора бургера
+MAIN_PAGE_URL = 'https://stellarburgers.nomoreparties.site/'
+BURGER_LOGO = '//div[contains(@class,"AppHeader_header__logo__2TDzT")]'
+CONSTRUCTOR_BUNS_SECTION = '//section[@id="buns"]'
+CONSTRUCTOR_SAUCE_SECTION = '//section[@id="sauces"]'
+CONSTRUCTOR_FILLINGS_SECTION = '//section[@id="fillings"]'
 
 class ConstructorTests(unittest.TestCase):
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
-        self.wait = WebDriverWait(self.browser, 10)
+        pass  # Всё управление браузером передано в фикстуру
 
     def tearDown(self):
-        self.browser.quit()
+        pass  # Всё управление браузером передано в фикстуру
 
     # Тест открытия раздела "Булки" в конструкторе
-    def test_open_buns_section(self):
-        self.browser.get(MAIN_PAGE_URL)
-        self.browser.find_element(By.XPATH, BURGER_LOGO).click()
+    def test_open_buns_section(self, browser):
+        browser.get(MAIN_PAGE_URL)
+        browser.find_element(By.XPATH, BURGER_LOGO).click()
         self.wait.until(EC.visibility_of_element_located((By.XPATH, CONSTRUCTOR_BUNS_SECTION)))
 
         # Проверяем, что раздел "Булки" является активным
-        buns_tab_active = self.browser.find_element(By.XPATH, '//li[@data-id="buns" and contains(@class, "current")]')
+        buns_tab_active = browser.find_element(By.XPATH, '//li[@data-id="buns" and contains(@class, "current")]')
         self.assertIsNotNone(buns_tab_active, "Таба 'Булки' не активирован.")
 
     # Тест открытия раздела "Соусы" в конструкторе
-    def test_open_sauce_section(self):
-        self.browser.get(MAIN_PAGE_URL)
-        self.browser.find_element(By.XPATH, BURGER_LOGO).click()
+    def test_open_sauce_section(self, browser):
+        browser.get(MAIN_PAGE_URL)
+        browser.find_element(By.XPATH, BURGER_LOGO).click()
         self.wait.until(EC.element_to_be_clickable((By.XPATH, '//li[@data-id="sauces"]'))).click()
 
         # Проверяем, что раздел "Соусы" является активным
-        sauces_tab_active = self.browser.find_element(By.XPATH, '//li[@data-id="sauces" and contains(@class, "current")]')
+        sauces_tab_active = browser.find_element(By.XPATH, '//li[@data-id="sauces" and contains(@class, "current")]')
         self.assertIsNotNone(sauces_tab_active, "Таба 'Соусы' не активирован.")
 
     # Тест открытия раздела "Начинки" в конструкторе
-    def test_open_fillings_section(self):
-        self.browser.get(MAIN_PAGE_URL)
-        self.browser.find_element(By.XPATH, BURGER_LOGO).click()
+    def test_open_fillings_section(self, browser):
+        browser.get(MAIN_PAGE_URL)
+        browser.find_element(By.XPATH, BURGER_LOGO).click()
         self.wait.until(EC.element_to_be_clickable((By.XPATH, '//li[@data-id="fillings"]'))).click()
 
         # Проверяем, что раздел "Начинки" является активным
-        fillings_tab_active = self.browser.find_element(By.XPATH, '//li[@data-id="fillings" and contains(@class, "current")]')
+        fillings_tab_active = browser.find_element(By.XPATH, '//li[@data-id="fillings" and contains(@class, "current")]')
         self.assertIsNotNone(fillings_tab_active, "Таба 'Начинки' не активирован.")
