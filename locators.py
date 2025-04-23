@@ -1,25 +1,25 @@
-# Локаторы для главной страницы
+from selenium.webdriver.common.by import By
+
+# Главные локаторы
 MAIN_PAGE_URL = 'https://stellarburgers.nomoreparties.site/'
-LOGIN_BUTTON_MAIN_PAGE = '//a[@href="/login"]'
-REGISTER_BUTTON_MAIN_PAGE = '//a[@href="/register"]'
-PERSONAL_ACCOUNT_LINK = '//p[@class="AppHeader_header__linkText__bZTlX AppHeader_header__link__1f_O6"]'
-BURGER_LOGO = '//div[@class="AppHeader_header__logo__2TDzT"]'
+BURGER_LOGO = (By.CSS_SELECTOR, '.AppHeader_header__logo__2TDzT')
+LOGIN_BUTTON_MAIN_PAGE = (By.CSS_SELECTOR, '[href="/login"]')
+REGISTER_BUTTON_MAIN_PAGE = (By.CSS_SELECTOR, '[href="/register"]')
+PERSONAL_ACCOUNT_LINK = (By.CSS_SELECTOR, '.AppHeader_header__linkText__bZTlX.AppHeader_header__link__1f_O6')
 
-# Локаторы для формы входа
-LOGIN_FORM_EMAIL_INPUT = '//input[@name="email"]'
-LOGIN_FORM_PASSWORD_INPUT = '//input[@name="password"]'
-LOGIN_FORM_SUBMIT_BUTTON = '//button[@type="submit"]'
+# Формы ввода и кнопки
+LOGIN_FORM_EMAIL_INPUT = (By.NAME, 'email')
+LOGIN_FORM_PASSWORD_INPUT = (By.NAME, 'password')
+LOGIN_FORM_SUBMIT_BUTTON = (By.CSS_SELECTOR, 'button[type="submit"]')
 
-# Локаторы для формы регистрации
-REGISTRATION_FORM_NAME_INPUT = '//input[@name="name"]'
-REGISTRATION_FORM_EMAIL_INPUT = '//input[@name="email"]'
-REGISTRATION_FORM_PASSWORD_INPUT = '//input[@name="password"]'
-REGISTRATION_FORM_SUBMIT_BUTTON = '//button[@type="submit"]'
+# Конструктор
+CONSTRUCTOR_BUNS_SECTION = (By.ID, 'buns')
+CONSTRUCTOR_SAUCE_SECTION = (By.ID, 'sauces')
+CONSTRUCTOR_FILLINGS_SECTION = (By.ID, 'fillings')
 
-# Локаторы для конструктора бургера
-CONSTRUCTOR_BUNS_SECTION = '//section[@id="buns"]'
-CONSTRUCTOR_SAUCE_SECTION = '//section[@id="sauces"]'
-CONSTRUCTOR_FILLINGS_SECTION = '//section[@id="fillings"]'
+# Личный кабинет
+PERSONAL_ACCOUNT_LOGOUT_BUTTON = (By.CSS_SELECTOR, '.profile-form__exit')
+FORGOT_PASSWORD_LINK = (By.LINK_TEXT, 'Забыли пароль?')
 
-# Локаторы для личного кабинета
-PERSONAL_ACCOUNT_LOGOUT_BUTTON = '//button[@class="profile-form__exit"]'
+# Элементы активного состояния (для проверок)
+ACTIVE_TAB_CLASS = 'current'
