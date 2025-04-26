@@ -27,5 +27,8 @@ CONSTRUCTOR_BUNS_SECTION = (By.ID, 'buns')
 CONSTRUCTOR_SAUCE_SECTION = (By.ID, 'sauces')
 CONSTRUCTOR_FILLINGS_SECTION = (By.ID, 'fillings')
 
+# Таб навигации
+NAVIGATION_ACTIVE_TAB = (By.CSS_SELECTOR, '.tab.active')
+
 # Сообщения об ошибках
 ERROR_MESSAGE = (By.CLASS_NAME, 'error-message')
