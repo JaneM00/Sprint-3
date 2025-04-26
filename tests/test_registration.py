@@ -1,23 +1,13 @@
-import time
-import unittest
+# tests/test_registration.py
+
+import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators import *
+from helpers import perform_registration
 
-class RegistrationTests(unittest.TestCase):
-
-    def setUp(self):
-        pass  # Всё управление браузером передано в фикстуру
-
-    def tearDown(self):
-        pass  # Всё управление браузером передано в фикстуру
-
-    # Вспомогательная функция для регистрации
-    def perform_registration(self, browser, name, email, password):
-        browser.find_element(*REGISTRATION_FORM_NAME_INPUT).send_keys(name)
-        browser.find_element(*REGISTRATION_FORM_EMAIL_INPUT).send_keys(email)
-        browser.find_element(*REGISTRATION_FORM_PASSWORD_INPUT).send_keys(password)
-        browser.find_element(*REGISTRATION_FORM_SUBMIT_BUTTON).click()
+@pytest.mark.usefixtures("browser")
+class TestRegistration:
 
     # Тест успешной регистрации
     def test_successful_registration(self, browser):
@@ -26,10 +16,10 @@ class RegistrationTests(unittest.TestCase):
         wait = WebDriverWait(browser, 10)
         wait.until(EC.visibility_of_element_located(REGISTRATION_FORM_NAME_INPUT))
         unique_email = f"test+{int(time.time())}@example.com"
-        self.perform_registration(browser, 'Иван Иванов', unique_email, 'ValidPassw0rd!')
+        perform_registration(browser, 'Иван Иванов', unique_email, 'ValidPassw0rd!')
         wait.until(EC.visibility_of_element_located(PERSONAL_ACCOUNT_LINK))
         personal_account_text = browser.find_element(*PERSONAL_ACCOUNT_LINK).text
-        self.assertEqual(personal_account_text, 'Личный кабинет')
+        assert personal_account_text == 'Личный кабинет'
 
     # Тест ошибки при вводе короткого пароля
     def test_short_password_error(self, browser):
@@ -38,9 +28,9 @@ class RegistrationTests(unittest.TestCase):
         wait = WebDriverWait(browser, 10)
         wait.until(EC.visibility_of_element_located(REGISTRATION_FORM_NAME_INPUT))
         unique_email = f"test+{int(time.time())}@example.com"
-        self.perform_registration(browser, 'Иван Иванов', unique_email, '12345')  # Пароль короче минимального
-        error_message = browser.find_element_by_class_name('error-message').text
-        self.assertIn('Пароль должен содержать минимум 6 символов', error_message)
+        perform_registration(browser, 'Иван Иванов', unique_email, 'short')
+        error_message = browser.find_element(*ERROR_MESSAGE).text
+        assert "Минимальная длина пароля — 6 символов" in error_message
 
     # Тест на ошибку при вводе неправильного адреса электронной почты
     def test_invalid_email_format(self, browser):
