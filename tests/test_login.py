@@ -1,13 +1,18 @@
 # tests/test_login.py
 
-import pytest
+import time
+import unittest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators import *
-from helpers import perform_login
 
-@pytest.mark.usefixtures("browser")
-class TestLogin:
+class TestLogin(unittest.TestCase):
+
+    def setUp(self):
+        pass  # Всё управление браузером передано в фикстуру
+
+    def tearDown(self):
+        pass  # Всё управление браузером передано в фикстуру
 
     # Тест входа по кнопке «Войти в аккаунт» на главной
     def test_login_via_main_page_button(self, browser):
@@ -15,10 +20,12 @@ class TestLogin:
         browser.find_element(*LOGIN_BUTTON_MAIN_PAGE).click()
         wait = WebDriverWait(browser, 10)
         wait.until(EC.visibility_of_element_located(LOGIN_FORM_EMAIL_INPUT))
-        perform_login(browser, 'existing_user@example.com', 'valid_password')
+        browser.find_element(*LOGIN_FORM_EMAIL_INPUT).send_keys('existing_user@example.com')
+        browser.find_element(*LOGIN_FORM_PASSWORD_INPUT).send_keys('valid_password')
+        browser.find_element(*LOGIN_FORM_SUBMIT_BUTTON).click()
         wait.until(EC.visibility_of_element_located(PERSONAL_ACCOUNT_LINK))
         personal_account_text = browser.find_element(*PERSONAL_ACCOUNT_LINK).text
-        assert personal_account_text == 'Личный кабинет'
+        self.assertEqual(personal_account_text, 'Личный кабинет')
 
     # Тест входа через кнопку «Личный кабинет»
     def test_login_via_personal_account_link(self, browser):
@@ -26,10 +33,12 @@ class TestLogin:
         browser.find_element(*PERSONAL_ACCOUNT_LINK).click()
         wait = WebDriverWait(browser, 10)
         wait.until(EC.visibility_of_element_located(LOGIN_FORM_EMAIL_INPUT))
-        perform_login(browser, 'existing_user@example.com', 'valid_password')
+        browser.find_element(*LOGIN_FORM_EMAIL_INPUT).send_keys('existing_user@example.com')
+        browser.find_element(*LOGIN_FORM_PASSWORD_INPUT).send_keys('valid_password')
+        browser.find_element(*LOGIN_FORM_SUBMIT_BUTTON).click()
         wait.until(EC.visibility_of_element_located(PERSONAL_ACCOUNT_LINK))
         personal_account_text = browser.find_element(*PERSONAL_ACCOUNT_LINK).text
-        assert personal_account_text == 'Личный кабинет'
+        self.assertEqual(personal_account_text, 'Личный кабинет')
 
     # Тест входа через кнопку в форме регистрации
     def test_login_via_register_form(self, browser):
@@ -52,3 +61,4 @@ class TestLogin:
         wait.until(EC.visibility_of_element_located(PERSONAL_ACCOUNT_LINK))
         personal_account_text = browser.find_element(*PERSONAL_ACCOUNT_LINK).text
         self.assertEqual(personal_account_text, 'Личный кабинет')
+    
