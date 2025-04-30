@@ -12,3 +12,11 @@ def browser():
     browser = webdriver.Chrome(options=chrome_options)
     yield browser
     browser.quit()
+
+@pytest.fixture(scope='session')
+def browser():
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    browser = webdriver.Chrome(options=chrome_options)
+    yield browser
+    browser.quit()
