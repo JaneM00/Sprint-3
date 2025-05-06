@@ -35,3 +35,6 @@ CONSTRUCTOR_FILLINGS_SECTION = (By.ID, 'fillings')
 
 # Классы активных состояний 
 ACTIVE_TAB_CLASS = 'current'
+
+# Локатор для ссылки восстановления пароля
+FORGOT_PASSWORD_LINK = (By.LINK_TEXT, "Восстановить пароль")
