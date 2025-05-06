@@ -1,20 +1,9 @@
 # tests/test_constructor.py
-
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from locators import MAIN_PAGE_URL, BURGER_LOGO, CONSTRUCTOR_BUNS_SECTION, ACTIVE_TAB_CLASS
-
-
-@pytest.fixture(scope='session')
-def browser():
-    """Инициализирует веб-драйвер и возвращает объект"""
-    from selenium import webdriver
-    driver = webdriver.Chrome()  # Или другой драйвер по ситуации
-    yield driver
-    driver.quit()
-
+from locators import MAIN_PAGE_URL, BURGER_LOGO, CONSTRUCTOR_BUNS_SECTION, CONSTRUCTOR_SAUCE_SECTION, CONSTRUCTOR_FILLINGS_SECTION, ACTIVE_TAB_CLASS
 
 class TestConstructor:
 
@@ -35,8 +24,8 @@ class TestConstructor:
         browser.find_element(*BURGER_LOGO).click()
         
         wait = WebDriverWait(browser, 10)
-        wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'li[data-id="sauces"]')))
-        browser.find_element(By.CSS_SELECTOR, 'li[data-id="sauces"]').click()
+        wait.until(EC.element_to_be_clickable(CONSTRUCTOR_SAUCE_SECTION))
+        browser.find_element(*CONSTRUCTOR_SAUCE_SECTION).click()
         
         active_tab = browser.find_elements(By.CSS_SELECTOR, f'li[data-id="sauces"].{ACTIVE_TAB_CLASS}')
         assert len(active_tab) > 0, "Активный таб 'Соусы' не найден!"
@@ -47,8 +36,8 @@ class TestConstructor:
         browser.find_element(*BURGER_LOGO).click()
         
         wait = WebDriverWait(browser, 10)
-        wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'li[data-id="fillings"]')))
-        browser.find_element(By.CSS_SELECTOR, 'li[data-id="fillings"]').click()
+        wait.until(EC.element_to_be_clickable(CONSTRUCTOR_FILLINGS_SECTION))
+        browser.find_element(*CONSTRUCTOR_FILLINGS_SECTION).click()
         
         active_tab = browser.find_elements(By.CSS_SELECTOR, f'li[data-id="fillings"].{ACTIVE_TAB_CLASS}')
         assert len(active_tab) > 0, "Активный таб 'Начинки' не найден!"
