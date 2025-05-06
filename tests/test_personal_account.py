@@ -1,17 +1,14 @@
-# tests/test_personal_account.py
-
 import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from locators import *
-
-@pytest.fixture(scope='session')
-def browser():
-    """Инициализируем и возвращаем экземпляр браузера."""
-    from selenium import webdriver
-    driver = webdriver.Chrome()
-    yield driver
-    driver.quit()
+from locators import (
+    MAIN_PAGE_URL,
+    PERSONAL_ACCOUNT_LINK,
+    LOGIN_FORM_EMAIL_INPUT,
+    LOGIN_FORM_PASSWORD_INPUT,
+    LOGIN_FORM_SUBMIT_BUTTON,
+    PERSONAL_ACCOUNT_LOGOUT_BUTTON,
+)
 
 class TestPersonalAccount:
 
