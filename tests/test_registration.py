@@ -1,17 +1,19 @@
 # tests/test_registration.py
 
 import pytest
+import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from locators import *  # Импортируем локаторы из отдельного файла
-
-@pytest.fixture(scope='session')
-def browser():
-    """Фикстура для запуска и остановки браузера."""
-    from selenium import webdriver
-    driver = webdriver.Chrome()  # Используем Chrome, но можно выбрать любой подходящий драйвер
-    yield driver
-    driver.quit()
+from locators import (
+    MAIN_PAGE_URL,
+    REGISTER_BUTTON_MAIN_PAGE,
+    REGISTRATION_FORM_NAME_INPUT,
+    REGISTRATION_FORM_EMAIL_INPUT,
+    REGISTRATION_FORM_PASSWORD_INPUT,
+    REGISTRATION_FORM_SUBMIT_BUTTON,
+    PERSONAL_ACCOUNT_LINK,
+    ERROR_MESSAGE_ELEMENT,
+)
 
 class TestRegistration:
 
