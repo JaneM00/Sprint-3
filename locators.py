@@ -10,6 +10,7 @@ BURGER_LOGO = (By.CLASS_NAME, 'AppHeader_header__logo__2TDzT')
 LOGIN_BUTTON_MAIN_PAGE = (By.CSS_SELECTOR, 'a[href="/login"]')
 REGISTER_BUTTON_MAIN_PAGE = (By.CSS_SELECTOR, 'a[href="/register"]')
 PERSONAL_ACCOUNT_LINK = (By.CSS_SELECTOR, '.AppHeader_header__linkText__bZTlX.AppHeader_header__link__1f_O6')
+ACTIVE_BUNS_TAB = (By.CSS_SELECTOR, f'li[data-id="buns"]')
 
 # Форма входа
 LOGIN_FORM_EMAIL_INPUT = (By.NAME, 'email')
